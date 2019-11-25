@@ -2,30 +2,30 @@ package net.houwing.repository;
 
 import net.houwing.controller.KlantDto;
 
-public class KlantenModel {
+public class KlantModel {
 
     private Integer id;
     private String naam;
     private String achternaam;
     private String banknummer;
 
-    public KlantenModel() {
+    public KlantModel() {
     }
 
-    KlantenModel(Integer id, String naam, String achternaam) {
+    KlantModel(Integer id, String naam, String achternaam) {
         this.id = id;
         this.naam = naam;
         this.achternaam = achternaam;
     }
 
-    KlantenModel(Integer id, String naam, String achternaam, String banknummer) {
+    KlantModel(Integer id, String naam, String achternaam, String banknummer) {
         this.id = id;
         this.naam = naam;
         this.achternaam = achternaam;
         this.banknummer = banknummer;
     }
 
-    public KlantenModel(KlantDto klantDto) {
+    public KlantModel(KlantDto klantDto) {
         this.id = klantDto.getId();
         this.naam = klantDto.getNaam();
         this.achternaam = klantDto.getAchternaam();

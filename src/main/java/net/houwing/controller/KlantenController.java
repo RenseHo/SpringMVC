@@ -1,6 +1,6 @@
 package net.houwing.controller;
 
-import net.houwing.repository.KlantenModel;
+import net.houwing.repository.KlantModel;
 import net.houwing.services.KlantenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,25 +20,25 @@ public class KlantenController {
         this.klantenService = klantenService;
     }
 
-    @GetMapping(value = "/welkom")
+    @GetMapping(value = "/welkom", produces = MediaType.APPLICATION_JSON_VALUE)
     public String welkom (){
         return klantenService.getWelkom();
     }
 
     @GetMapping(value ="/all")      //, produces = MediaType.APPLICATION_JSON_VALUE
-     public ResponseEntity<List<KlantenModel>> getKlantenAll() {
+     public ResponseEntity<List<KlantModel>> getKlantenAll() {
         return ResponseEntity.ok(klantenService.getAlleKlantenService());
     }
 
     @RequestMapping(value ="/alltwee", method = RequestMethod.GET)      //, produces = MediaType.APPLICATION_JSON_VALUE
-    public ResponseEntity<List<KlantenModel>> getKlantentwee() {
+    public ResponseEntity<List<KlantModel>> getKlantentwee() {
         return ResponseEntity.ok(klantenService.getAlleKlantenService());
     }
 
     @PostMapping(path = "/add",  consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<KlantenModel> addKlant (@RequestBody KlantenModel klantenModel) {
-        klantenService.addDtoKlant(klantenModel);
-        return ResponseEntity.ok(klantenModel);
+    public ResponseEntity<KlantModel> addKlant (@RequestBody KlantModel klantModel) {
+        klantenService.addKlant(klantModel);
+        return ResponseEntity.ok(klantModel);
     }
 
     @RequestMapping(value = "/allemaal",method = RequestMethod.GET)

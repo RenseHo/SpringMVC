@@ -9,33 +9,33 @@ import java.util.List;
 public class KlantenRepository {
 
 
-    private List<KlantenModel> klanten = new ArrayList<>();
+    private List<KlantModel> klanten = new ArrayList<>();
 
     public KlantenRepository() {
-        klanten.add(new KlantenModel(1, "Klaasje","Vaak"));
-        klanten.add(new KlantenModel(2, "Pieter","Saakstra","22-33-44-567"));
+        klanten.add(new KlantModel(1, "Klaasje","Vaak"));
+        klanten.add(new KlantModel(2, "Pieter","Saakstra","22-33-44-567"));
     }
 
-    public List<KlantenModel> getAlleKlantenRepository() {
+    public List<KlantModel> getAlleKlantenRepository() {
         return klanten;
     }
 
-    public KlantenModel getKlantById(Integer id) {
+    public KlantModel getKlantById(Integer id) {
         return klanten.get(id);
     }
 
-    public void renameKlant(KlantenModel klantenModel) {
-        klanten.get(klantenModel.getId()).setNaam(klantenModel.getNaam());
+    public void renameKlant(KlantModel klantModel) {
+        klanten.get(klantModel.getId()).setNaam(klantModel.getNaam());
     }
 
-    public void deleteKlant(KlantenModel klantenModel) {
-        klanten.remove(klantenModel.getId());
+    public void deleteKlant(KlantModel klantModel) {
+        klanten.remove(klantModel.getId());
     }
 
-    public void addKlant (KlantenModel klantenModel){
+    public void addKlant (KlantModel klantModel){
         //klanten.add(new KlantenModel(3,"Rense","Houwing","123456"));
         // ToDo - Generate an id...
-        klanten.add(klantenModel);
+        klanten.add(klantModel);
     }
 
 //    public void addKlant (String naam , String achternaam , String banknummer){

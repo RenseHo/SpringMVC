@@ -1,7 +1,7 @@
 package net.houwing.services;
 
 import net.houwing.controller.KlantDto;
-import net.houwing.repository.KlantenModel;
+import net.houwing.repository.KlantModel;
 import net.houwing.repository.KlantenRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,27 +13,28 @@ import java.util.stream.Collectors;
 @Component
 public class KlantenService {
 
-    public KlantenRepository klantenRepository;
+    private KlantenRepository klantenRepository;
 
     @Autowired
-    public KlantenService(KlantenRepository klantenRepository) {
+    public KlantenService(KlantenRepository klantenRepository)
+    {
         this.klantenRepository = klantenRepository;
     }
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public String getWelkom(){
+    public String getWelkom() {
         return "Hallo Klant. Welkom.";
     }
 
-    public List<KlantenModel> getAlleKlantenService() {
+    public List<KlantModel> getAlleKlantenService() {
         return klantenRepository.getAlleKlantenRepository();
     }
 
     public List<KlantDto> getAllemaal() {
-        List<KlantenModel> klanten = klantenRepository.getAlleKlantenRepository();
-        List<KlantDto> collect = klanten.stream()
+        //List<KlantenModel> klanten = klantenRepository.getAlleKlantenRepository();
+        List<KlantDto> collect = klantenRepository.getAlleKlantenRepository().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
         return collect;
@@ -42,7 +43,7 @@ public class KlantenService {
 
     public String getKlantByIdString(Integer id) {
         String Name = "Geen naam gevonden";
-        for (KlantenModel klant : klantenRepository.getAlleKlantenRepository()) {
+        for (KlantModel klant : klantenRepository.getAlleKlantenRepository()) {
             if (klant.getId().equals(id)) {
                 Name = "Klant met naam : " + klant.getNaam() + " en achternaam : " + klant.getAchternaam() + " gevonden.";
             }
@@ -50,31 +51,24 @@ public class KlantenService {
         return Name;
     }
 
-//    public List<KlantenModel> getKlantById(Integer id) {
-//        List<KlantenModel> klanten = getAlleKlantenService();
-//        List<KlantenModel> resultaat = klanten.stream()
-//                .filter(klant -> klant.getId().equals(id))
-//                .collect(Collectors.toList());
-//        return resultaat;
-//    }
-
-    public void addDtoKlant (KlantenModel klantenModel){
-        klantenRepository.addKlant(klantenModel);
+    public void addKlant(KlantModel klantModel) {
+        klantenRepository.addKlant(klantModel);
     }
 
-    public List<KlantDto> getKlantById (Integer id) {
-        List<KlantenModel> klanten = klantenRepository.getAlleKlantenRepository();
-        List<KlantDto> collect = klanten.stream()
+    public List<KlantDto> getKlantById(Integer id) {
+        //List<KlantenModel> klanten = klantenRepository.getAlleKlantenRepository();
+        List<KlantDto> collect = klantenRepository.getAlleKlantenRepository().stream()
                 .map(this::convertToDto)
                 .filter(item -> item.getId().equals(id))
                 .collect(Collectors.toList());
         return collect;
     }
 
-    private KlantDto convertToDto(KlantenModel klantenModel) {
-        KlantDto klantDto = modelMapper.map(klantenModel, KlantDto.class);
+    private KlantDto convertToDto(KlantModel klantModel) {
+        KlantDto klantDto = modelMapper.map(klantModel, KlantDto.class);
         return klantDto;
     }
+
 
 }
 
@@ -95,5 +89,13 @@ public class KlantenService {
 
 //    public void addDtoKlant (String naam , String achternaam , String banknummer){
 //        klantenRepository.addKlant(naam, achternaam, banknummer);
+//    }
+
+//    public List<KlantenModel> getKlantById(Integer id) {
+//        List<KlantenModel> klanten = getAlleKlantenService();
+//        List<KlantenModel> resultaat = klanten.stream()
+//                .filter(klant -> klant.getId().equals(id))
+//                .collect(Collectors.toList());
+//        return resultaat;
 //    }
 
