@@ -2,7 +2,10 @@ package net.houwing.repository;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Repository
 public class KlantenRepository {
@@ -31,9 +34,8 @@ public class KlantenRepository {
     }
 
     public void addKlant(Klant klant) {
-        // ToDo - Generate an id...
-        Klant klantMaxId = Collections.max(klanten,Comparator.comparing(Klant::getId));
-        Integer newId = klantMaxId.getId() + 1 ;
+        Klant klantMaxId = Collections.max(klanten, Comparator.comparing(Klant::getId));
+        Integer newId = klantMaxId.getId() + 1;
         klant.setId(newId);
         klanten.add(klant);
     }

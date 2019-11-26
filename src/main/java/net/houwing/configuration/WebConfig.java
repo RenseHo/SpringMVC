@@ -1,6 +1,5 @@
 package net.houwing.configuration;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -17,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 
     @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer){
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.defaultContentType(MediaType.APPLICATION_JSON);
         configurer.mediaType("pdf", MediaType.APPLICATION_PDF)
                 .parameterName("mediaType");

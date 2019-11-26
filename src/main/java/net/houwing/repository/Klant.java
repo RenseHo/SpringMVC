@@ -1,9 +1,5 @@
 package net.houwing.repository;
 
-import net.houwing.controller.KlantDto;
-
-import java.util.Objects;
-
 public class Klant {
 
     private Integer id;
@@ -60,19 +56,4 @@ public class Klant {
         this.banknummer = banknummer;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Klant klant = (Klant) o;
-//        return Objects.equals(getId(), klant.getId()) &&
-//                Objects.equals(getVoornaam(), klant.getVoornaam()) &&
-//                Objects.equals(getAchternaam(), klant.getAchternaam()) &&
-//                Objects.equals(getBanknummer(), klant.getBanknummer());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(getId(), getVoornaam(), getAchternaam(), getBanknummer());
-//    }
 }

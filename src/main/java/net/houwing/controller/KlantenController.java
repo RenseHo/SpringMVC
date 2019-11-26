@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/klanten")
@@ -49,15 +48,8 @@ public class KlantenController {
     }
 
     @PutMapping(value = "/{id}")
-    public String updateById(@PathVariable(value = "id") Integer id , @RequestBody KlantDto klantDto){
-        return klantenService.updKlantById (id , klantDto);
+    public String updateById(@PathVariable(value = "id") Integer id, @RequestBody KlantDto klantDto) {
+        return klantenService.updKlantById(id, klantDto);
     }
-
-
-//    // http://localhost:8080/Spring-1/addklantdrie?naam=Jan&achternaam=Jansen&banknummer=99-88-77-654
-//    @PostMapping(path = "/addklantdrie")
-//    public void addKlantdrie (@RequestParam("naam") String naam, @RequestParam("achternaam") String achternaam, @RequestParam("banknummer") String banknummer) {
-//        klantenService.addDtoKlant(naam,achternaam,banknummer);
-//    }
 
 }
