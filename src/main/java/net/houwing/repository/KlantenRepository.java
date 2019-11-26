@@ -29,6 +29,7 @@ public class KlantenRepository {
     }
 
     public void updateKlantById(Klant klant, Klant dtoKlant) {
+        dtoKlant.setId(klant.getId());
         int klantIndex = klanten.indexOf(klant);
         klanten.set(klantIndex, dtoKlant);
     }
