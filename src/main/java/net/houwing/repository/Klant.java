@@ -27,13 +27,6 @@ public class Klant {
         this.banknummer = banknummer;
     }
 
-    public Klant(KlantDto klantDto) {
-        this.id = klantDto.getId();
-        this.voornaam = klantDto.getVoornaam();
-        this.achternaam = klantDto.getAchternaam();
-        this.banknummer = klantDto.getBanknummer();
-
-    }
 
     public Integer getId() {
         return id;
