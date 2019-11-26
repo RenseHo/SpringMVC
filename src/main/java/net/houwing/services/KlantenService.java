@@ -1,13 +1,14 @@
 package net.houwing.services;
 
 import net.houwing.controller.KlantDto;
-import net.houwing.repository.KlantModel;
+import net.houwing.repository.Klant;
 import net.houwing.repository.KlantenRepository;
-import org.modelmapper.ModelMapper;
+//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -15,62 +16,85 @@ public class KlantenService {
 
     private KlantenRepository klantenRepository;
 
-    @Autowired
-    public KlantenService(KlantenRepository klantenRepository)
-    {
+    public KlantenService(KlantenRepository klantenRepository) {
         this.klantenRepository = klantenRepository;
     }
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     public String getWelkom() {
         return "Hallo Klant. Welkom.";
     }
 
-    public List<KlantModel> getAlleKlantenService() {
-        return klantenRepository.getAlleKlantenRepository();
+    public List<Klant> getKlanten() {
+        return klantenRepository.getAlleKlanten();
     }
 
-    public List<KlantDto> getAllemaal() {
-        //List<KlantenModel> klanten = klantenRepository.getAlleKlantenRepository();
-        List<KlantDto> collect = klantenRepository.getAlleKlantenRepository().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-        return collect;
-    }
-
-
-    public String getKlantByIdString(Integer id) {
-        String Name = "Geen naam gevonden";
-        for (KlantModel klant : klantenRepository.getAlleKlantenRepository()) {
-            if (klant.getId().equals(id)) {
-                Name = "Klant met naam : " + klant.getNaam() + " en achternaam : " + klant.getAchternaam() + " gevonden.";
-            }
-        }
-        return Name;
-    }
-
-    public void addKlant(KlantModel klantModel) {
-        klantenRepository.addKlant(klantModel);
-    }
-
-    public List<KlantDto> getKlantById(Integer id) {
-        //List<KlantenModel> klanten = klantenRepository.getAlleKlantenRepository();
-        List<KlantDto> collect = klantenRepository.getAlleKlantenRepository().stream()
-                .map(this::convertToDto)
+    public Klant getKlantById(Integer id) {
+        Optional<Klant> collect = klantenRepository.getAlleKlanten().stream()
                 .filter(item -> item.getId().equals(id))
-                .collect(Collectors.toList());
-        return collect;
+                .findFirst();
+        //Klant klant = collect.get();
+
+        return collect.get();
     }
 
-    private KlantDto convertToDto(KlantModel klantModel) {
-        KlantDto klantDto = modelMapper.map(klantModel, KlantDto.class);
-        return klantDto;
+    public void addKlant(Klant klant) {
+        klantenRepository.addKlant(klant);
     }
 
+    public String delKlantById(Integer id) {
+        String message;
+        Optional<Klant> collect = klantenRepository.getAlleKlanten().stream()
+                .filter(item -> item.getId().equals(id))
+                .findFirst();
+        if (collect.isPresent()) {
+            Klant klant = collect.get();
+            //klantenRepository.deleteKlant(klant);
+            klantenRepository.delKlantById(klant, id);
+            message = "Klant verwijderd";
+        } else {
+            message = "Klant niet gevonden dus niet verwijderd";
+        }
+        return message;
+    }
 
+    public String updKlantById(Integer id, KlantDto klantDto) {
+        String message;
+        Optional<Klant> collect = klantenRepository.getAlleKlanten().stream()
+                //.map(this::klantToKlantDto)
+                .filter(item -> item.getId().equals(id))
+                .findFirst();
+        if (collect.isPresent()) {
+            Klant klant = collect.get();
+            Klant dtoKlant = KlantMapperImpl.INSTANCE.klantDtoToKlant(klantDto);
+            Integer klantId = klant.getId();
+            //Integer klantId = klant.getId();
+            //Integer klantId = klant.indexOf(dtoId);
+            klantenRepository.updateKlantById(klant, dtoKlant);
+            message = "Klant geupdate";
+        } else {
+            message = "Klant niet gevonden dus niet geupdate";
+        }
+        return message;
+    }
 }
+//    @Override
+//    public KlantDto klantToKlantDto(Klant klant) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Klant klantDtoToKlant(KlantDto klantDto) {
+//        return null;
+//    }
+
+//    private KlantDto convertToDto (Klant klant) {
+//        //KlantDto klantDto = modelMapper.map(klantModel, KlantDto.class);
+//        return modelMapper.map(klant, KlantDto.class);
+//    }
+//
+//    private Klant convertFromDto (KlantDto klantDto){
+//        return modelMapper.map(klantDto, Klant.class);
+//    }
 
 //    public void addDtoKlant (KlantenModel klantenModel){
 //        klantenRepository.addKlant(klantenModel);

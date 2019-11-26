@@ -1,6 +1,5 @@
 package net.houwing.configuration;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer){
         configurer.defaultContentType(MediaType.APPLICATION_JSON);
-        configurer.mediaType("txt", MediaType.TEXT_PLAIN)
+        configurer.mediaType("pdf", MediaType.APPLICATION_PDF)
                 .parameterName("mediaType");
     }
 
@@ -29,8 +28,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/resources/**").setCachePeriod(0);
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
 }

@@ -3,10 +3,12 @@ package net.houwing.controller;
 public class KlantDto {
 
     private Integer id;
-    private String naam;
+    private String voornaam;
     private String achternaam;
     private String banknummer;
 
+    public KlantDto() {
+    }
 
     public Integer getId() {
         return id;
@@ -16,12 +18,12 @@ public class KlantDto {
         this.id = id;
     }
 
-    public String getNaam() {
-        return naam;
+    public String getVoornaam() {
+        return voornaam;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public void setVoornaam(String voornaam) {
+        this.voornaam = voornaam;
     }
 
     public String getAchternaam() {
